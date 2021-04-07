@@ -139,3 +139,4 @@ cython_debug/
 
 # extras
 .vscode/
+env_variables.yaml

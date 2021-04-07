@@ -32,6 +32,10 @@ def parse_contacts(contacts: dict) -> list:
 
 def domains_data(contacts: list) -> dict:
     domains = {}
+
+    if len(contacts) == 0:
+        return {}
+
     for c in contacts:
         d = c["domain"]
         if d not in domains:

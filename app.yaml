@@ -1,1 +1,3 @@
 runtime: python39
+includes:
+    - env_variables.yaml
