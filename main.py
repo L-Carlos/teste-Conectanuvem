@@ -44,6 +44,7 @@ def create_app():
 
     return app
 
+
 def main():
     app = create_app()
 
