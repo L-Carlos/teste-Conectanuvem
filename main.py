@@ -40,11 +40,10 @@ def index():
     if not google.authorized:
         return redirect(url_for("google.login"))
 
-    resp = google.get(
-        "https://people.googleapis.com/v1/people/me/connections?personFields=names,emailAddresses,organizations"
-    )
     try:
-        assert resp.ok, resp.text
+        resp = google.get(
+            "https://people.googleapis.com/v1/people/me/connections?personFields=names,emailAddresses,organizations"
+        )
     except (InvalidClientIdError, TokenExpiredError):
         return redirect(url_for("google.login"))
 
