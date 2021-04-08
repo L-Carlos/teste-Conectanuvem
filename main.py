@@ -1,8 +1,11 @@
 import os
 
-from flask import Flask, redirect, url_for
+from flask import Flask, redirect, render_template, url_for
 from flask_dance.contrib.google import google, make_google_blueprint
-from oauthlib.oauth2.rfc6749.errors import TokenExpiredError
+from oauthlib.oauth2.rfc6749.errors import (
+    InvalidClientIdError,
+    TokenExpiredError,
+)
 
 from contact_parsing import build_domains
 
@@ -34,9 +37,10 @@ def index():
     )
     try:
         assert resp.ok, resp.text
-    except TokenExpiredError:
+    except (InvalidClientIdError, TokenExpiredError):
         return redirect(url_for("google.login"))
+
     contacts = resp.json()
 
     data = build_domains(contacts)
-    return data
+    return render_template("index.html", data=data)
